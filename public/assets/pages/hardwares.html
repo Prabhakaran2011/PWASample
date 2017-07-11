@@ -48,8 +48,30 @@
         </div><!--/.nav-collapse -->
       </div>
     </div>
+      
+      <div style="margin-top:10px"></div>
 
 	<div class="container">
+        <div class="row mt centered">
+            <h3 id="initState"> Intitial Online State : </h3>
+            <hr>
+            <h3 id="changeState"></h3><h3> mode</h3>
+        </div>
+        
+        
+        <div class="centered">
+            <h2>Location</h2>
+            <div id="map" style="height:15em;"></div>
+            <div id="mapError"></div>
+        </div>
+        
+        <div class="centered">
+            <h2>Camera</h2>
+            <div id="camera"><video autoplay style="height:500px;width:500px"></video></div>
+            <div id="camError"></div>
+        </div>
+        
+        
 	</div><!-- /container -->
 	
     <!-- Bootstrap core JavaScript
@@ -57,6 +79,9 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+    
     <script src="../js/hardwares.js"></script>
+      
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCxl8YrvaAwr_D1-mVYGKfKdXdNwa7SNoc&callback=getGeo"></script>
   </body>
 </html>
