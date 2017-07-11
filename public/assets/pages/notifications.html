@@ -42,14 +42,25 @@
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
             <li><a href="../../index.html">Home</a></li>
-            <li><a href="#">Hardwares</a></li>
+            <li><a href="hardwares.html">Hardwares</a></li>
             <li><a href="notifications.html">Notifications</a></li>
           </ul>
         </div><!--/.nav-collapse -->
       </div>
     </div>
+      
+    <div style="margin-top:50px"></div>
 
 	<div class="container">
+        <div class="row centered">
+            <h3>Local Notifications</h3>
+            <div id="localNotifications">
+                <button type="submit" class="btn btn-warning btn-lg" onclick="localNotification">Local Notification</button>
+            </div>
+            <hr>
+            <h3>Push Notifications</h3>
+            
+        </div>
 	</div><!-- /container -->
 	
     <!-- Bootstrap core JavaScript
@@ -57,5 +68,7 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="../js/bootstrap.min.js"></script>
+      
+      <script src="../js/notifications.js"></script>
   </body>
 </html>
