@@ -4,7 +4,7 @@ console.log('Service Worker Started', self);
 
 self.addEventListener('install', function(event) {
   self.skipWaiting();
-  console.log('Service Worker Installed', event);
+  alert('Service Worker Installed', event);
 });
 
 self.addEventListener('activate', function(event) {

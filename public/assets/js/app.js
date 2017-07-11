@@ -1,8 +1,9 @@
 const messaging = firebase.messaging();
-
+var token;
 messaging.getToken()
     .then(function(currentToken) {
       console.log(currentToken);
+      token = currentToken;
       if (currentToken) {
         sendTokenToServer(currentToken);
       } else {
@@ -39,8 +40,7 @@ messaging.getToken()
         icon : payload.notification.icon,
         //image : 'assets/img/ipad-hand.png',
         //silent : false,
-        vibrate : [200, 100, 300,200, 100, 300,200, 100, 300],
-
+        vibrate : [200, 100, 300]
     });
   });
 
@@ -76,3 +76,23 @@ messaging.getToken()
       console.log('Unable to get permission to notify.', err);
     });
   }
+
+
+function subscribe(){
+    $.ajax({
+      type: "POST",
+      beforeSend: function(request) {
+        request.setRequestHeader("Authorization", "key=AAAA9i76Yf0:APA91bFbbCxfBzXqGgMJGjMKWD_x5WlvIQNuKzQ2_xtNUGmoNP7bXenTNdsAwKupb9SIgedctDjarDIEaXZuIwzH4EzpTep0WQFEbiaE7F4odp-2IYnp2oNt_C2Lf2v30LE4gAStLteh");
+        request.setRequestHeader("content-Type", "application/json");
+      },
+      url: "https://iid.googleapis.com/iid/v1/"+token+"/rel/topics/all",
+      data: "",
+      processData: false,
+      success: function(msg) {
+        alert('Subcribed');
+      },
+      error: function(err){
+        alert('Error');
+      }
+    });
+}

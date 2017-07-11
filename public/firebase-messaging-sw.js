@@ -6,15 +6,14 @@
  });
 
  const messaging = firebase.messaging();
-messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // Customize notification here
-  const notificationTitle = payload.notification.title;
-  const notificationOptions = {
-    body: payload.notification.body,
-    image:payload.notification.icon
-  };
+    messaging.setBackgroundMessageHandler(function(payload) {
+    console.log('[firebase-messaging-sw.js] Received background message ', payload);
+    // Customize notification here
+    const notificationTitle = payload.notification.title;
+    const notificationOptions = {
+        body: payload.notification.body,
+        image:payload.notification.icon
+    };
 
-  return self.registration.showNotification(notificationTitle,
-      notificationOptions);
+    return self.registration.showNotification(notificationTitle, notificationOptions);
 });
