@@ -17,7 +17,7 @@
     <link href="assets/css/main.css" rel="stylesheet">
 
     <!-- Fonts from Google Fonts -->
-	<link href='http://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
+	<link href='https://fonts.googleapis.com/css?family=Lato:300,400,900' rel='stylesheet' type='text/css'>
       
     <!-- Manifest anf favicon for PWA   -->
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicons/apple-touch-icon.png">
@@ -26,9 +26,11 @@
     <link rel="manifest" href="assets/favicons/manifest.json">
     <link rel="mask-icon" href="assets/favicons/safari-pinned-tab.svg" color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
+
+
       
     <!-- Firebase Hosting   -->
-    <script src="assets/js/firebase-hosting.js"></script>
+    <!--<script src="assets/js/firebase-hosting.js"></script>-->
     
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -125,6 +127,9 @@
 			</div>
 		</div><!-- /row -->
       </div>
+
+    
+
 	<div class="container">
 		<hr>
 		<p class="centered">Created to demo PWA - 2017</p>
@@ -136,5 +141,21 @@
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="assets/js/bootstrap.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/4.1.3/firebase-messaging.js"></script>
+      <script>
+        // Initialize Firebase
+        var config = {
+                apiKey: "AIzaSyDj4gkxjQvdutWMZnugMtDk_Bd17a5ggz8",
+                authDomain: "pwademo-ff008.firebaseapp.com",
+                databaseURL: "https://pwademo-ff008.firebaseio.com",
+                projectId: "pwademo-ff008",
+                storageBucket: "pwademo-ff008.appspot.com",
+                messagingSenderId: "1057350115837"
+            };
+            firebase.initializeApp(config);
+      </script>
+
+    <script src="assets/js/app.js?_=232445343367"></script>
   </body>
 </html>
