@@ -159,6 +159,13 @@
             firebase.initializeApp(config);
       </script>
 
-    <script src="assets/js/app.js?_=232445343367"></script>
+    <script src="assets/js/app.js?_=2"></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker
+                .register('service-worker.js')
+                .then(function() { console.log("Service Worker Registered"); });
+      }
+    </script>
   </body>
 </html>

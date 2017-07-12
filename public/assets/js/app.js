@@ -35,12 +35,9 @@ messaging.getToken()
     console.log("Message received. ", payload);
 
     new Notification (payload.notification.title, {
-        body : payload.notification.body,
-        badge : payload.notification.icon,
+        body : 'This message is being loaded from app.js',
         icon : payload.notification.icon,
         //image : 'assets/img/ipad-hand.png',
-        //silent : false,
-        vibrate : [200, 100, 300]
     });
   });
 
