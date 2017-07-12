@@ -1,27 +1,39 @@
 const messaging = firebase.messaging();
 
-messaging.getToken()
-    .then(function(currentToken) {
-      console.log(currentToken);
-      if (currentToken) {
-        sendTokenToServer(currentToken);
-      } else {
-        console.log('No Instance ID token available. Request permission to generate one.');
-        requestPermission();
+$('#FCMNotification').click(function(){
+    var recipient = $('#recipient').val().trim();
+    if(recipient.length < 1){
+      recipient = "Anonymous "+ (Math.floor(Math.random() * 5000) + 1  );
+    }
+    getFCMToken(recipient);
+
+});
+
+function getFCMToken(recipient){
+  messaging.getToken()
+      .then(function(currentToken) {
+        console.log(currentToken);
+        if (currentToken) {
+          sendTokenToServer(currentToken,recipient);
+          window.localStorage.setItem('recipient', recipient);
+        } else {
+          console.log('No Instance ID token available. Request permission to generate one.');
+          requestPermission();
+          setTokenSentToServer(false);
+        }
+      })
+      .catch(function(err) {
+        console.log('An error occurred while retrieving token. ', err);
         setTokenSentToServer(false);
-      }
-    })
-    .catch(function(err) {
-      console.log('An error occurred while retrieving token. ', err);
-      setTokenSentToServer(false);
-    });
+      });
+}
 
   messaging.onTokenRefresh(function() {
     messaging.getToken()
     .then(function(refreshedToken) {
       console.log('Token refreshed.');
       setTokenSentToServer(false);
-      sendTokenToServer(refreshedToken);
+      sendTokenToServer(refreshedToken,window.localStorage.getItem('recipient'));
       console.log("refreshedToken::"+refreshedToken)
     })
     .catch(function(err) {
@@ -45,12 +57,13 @@ messaging.getToken()
   });
 
 
-  function sendTokenToServer(currentToken) {
+  function sendTokenToServer(currentToken,recipient) {
     
     
     if (!isTokenSentToServer()) {
       console.log('Sending token to server...');
-      firebase.database().ref('devices/'+currentToken).set({
+      firebase.database().ref('devices/'+recipient).set({
+        token: currentToken,
         ostype: navigator.userAgent,
       });
       setTokenSentToServer(true);
