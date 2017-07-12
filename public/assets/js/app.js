@@ -1,5 +1,25 @@
 const messaging = firebase.messaging();
 var token;
+
+(()=>{
+    var onlineState = navigator.onLine ? 'Online' : 'Offline';
+    var buttonClass = navigator.onLine ? 'success' : 'danger';
+    $('#headerButton').append('<button class="btn btn-lg btn-'+buttonClass+'">' + onlineState + '</button>');
+    
+    window.addEventListener('online', ()=> {
+        $('#subBtn').attr('disabled', false);
+        $('#headerButton').empty();
+        $('#headerButton').append('<button class="btn btn-success btn-lg" type="submit" >Online</button>');
+    });
+    
+    window.addEventListener('offline', ()=> {
+        $('#subBtn').attr('disabled', true);
+        $('#headerButton').empty();
+        $('#headerButton').append('<button class="btn btn-danger btn-lg" type="submit" >Offline</button>');
+    });
+})();
+
+
 messaging.getToken()
     .then(function(currentToken) {
       console.log(currentToken);

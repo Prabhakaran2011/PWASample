@@ -54,8 +54,7 @@ self.addEventListener('fetch', function(event) {
 
 
 self.addEventListener('push', function (event) {
-  
-  var title = 'Click to open push message';
+  var title = 'Clicked to open push message';
   event.waitUntil(
     self.registration.showNotification(title, {
       'body': "This message is being loaded from sw.js",//event.data.text(),

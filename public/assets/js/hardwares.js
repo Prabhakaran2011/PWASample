@@ -1,7 +1,6 @@
+var batteryInfo = {};
+
 (()=>{
-    var onlineState = navigator.onLine ? 'Online' : 'Offline';
-    $('#initState').append('<b>' + onlineState + '</b>');
-    
     window.addEventListener('online', ()=> {
         $('#changeState').empty();
         $('#changeState').append('<b style="color: greeen">Online</b>');
@@ -12,13 +11,24 @@
         $('#changeState').append('<b style="color: red">Offline</b>');
     });
     
-    getStream('video')
+    getStream('video');
     
-    navigator.getBattery().then((battery)=>{
-        console.log(battery)
+    batteryInfo = navigator.getBattery();
+    
+    batteryInfo.then((battery)=>{
+        var chargingMode = battery.charging ? 'Charging' : 'Discharging';
+        $('#chargingState').append('<b>' + chargingMode + '</b>');
+        $('#chargetime').append('<b>' + battery.level + '</b>');
     });
-    
 })();
+
+function updateChargingInfo(battery){
+
+}
+
+function updateChargingTime(){
+    
+}
 
 function getGeo(){
     navigator.geolocation.getCurrentPosition((location) => {
