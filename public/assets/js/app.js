@@ -21,17 +21,6 @@ var token;
     });
 })();
 
-messaging.getToken()
-    .then(function(currentToken) {
-      console.log(currentToken);
-      token = currentToken;
-      if (currentToken) {
-        sendTokenToServer(currentToken);
-      } else {
-        console.log('No Instance ID token available. Request permission to generate one.');
-        requestPermission();
-      }
-    });
 
 $('#regisfcm').click(function(){
   if (!isTokenSentToServer()) {
