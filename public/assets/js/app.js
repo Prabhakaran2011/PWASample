@@ -1,5 +1,12 @@
 const messaging = firebase.messaging();
-var token;
+
+$('#regisfcm').click(function(){
+  if (isTokenSentToServer()) {
+    $('#exampleModal').modal('toggle');
+  }else{
+    alert("Don't worry you are already registered for FCM in the name of "+window.localStorage.getItem('recipient'));
+  }
+});
 
 $('#FCMNotification').click(function(){
     var recipient = $('#recipient').val().trim();
@@ -17,6 +24,7 @@ function getFCMToken(recipient){
         if (currentToken) {
           sendTokenToServer(currentToken,recipient);
           window.localStorage.setItem('recipient', recipient);
+          window.localStorage.setItem('token', currentToken);
         } else {
           console.log('No Instance ID token available. Request permission to generate one.');
           requestPermission();
@@ -35,6 +43,7 @@ function getFCMToken(recipient){
       console.log('Token refreshed.');
       setTokenSentToServer(false);
       sendTokenToServer(refreshedToken,window.localStorage.getItem('recipient'));
+      window.localStorage.setItem('token', refreshedToken);
       console.log("refreshedToken::"+refreshedToken)
     })
     .catch(function(err) {
@@ -65,6 +74,7 @@ function getFCMToken(recipient){
       });
       setTokenSentToServer(true);
     } else {
+      alert('This device already registered to FCM in the name of '+recipient);
       console.log('Token already sent to server so won\'t send it again ' +
           'unless it changes');
     }
@@ -89,6 +99,12 @@ function getFCMToken(recipient){
 
 
 function subscribe(){
+  var token = window.localStorage.getItem('token');
+  if(token==null || token.length < 1){
+    alert('No FCM Registeration found, Please click Register to FCM button First');
+    return;
+  }
+  else{
     $.ajax({
       type: "POST",
       beforeSend: function(request) {
@@ -105,4 +121,6 @@ function subscribe(){
         alert('Error');
       }
     });
+  }
+    
 }
