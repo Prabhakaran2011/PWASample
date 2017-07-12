@@ -35,6 +35,7 @@ $('#FCMNotification').click(function(){
     if(recipient.length < 1){
       recipient = "Anonymous "+ (Math.floor(Math.random() * 5000) + 1  );
     }
+    window.localStorage.setItem('recipient', recipient);
     getFCMToken(recipient);
 
 });
@@ -45,7 +46,7 @@ function getFCMToken(recipient){
         console.log(currentToken);
         if (currentToken) {
           sendTokenToServer(currentToken,recipient);
-          window.localStorage.setItem('recipient', recipient);
+          
           window.localStorage.setItem('token', currentToken);
         } else {
           console.log('No Instance ID token available. Request permission to generate one.');
@@ -113,6 +114,7 @@ function getFCMToken(recipient){
     messaging.requestPermission()
     .then(function() {
       console.log('Notification permission granted.');
+       getFCMToken(window.localStorage.getItem('recipient'));
     })
     .catch(function(err) {
       console.log('Unable to get permission to notify.', err);
