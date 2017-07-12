@@ -1,7 +1,7 @@
 const messaging = firebase.messaging();
 
 $('#regisfcm').click(function(){
-  if (isTokenSentToServer()) {
+  if (!isTokenSentToServer()) {
     $('#exampleModal').modal('toggle');
   }else{
     alert("Don't worry you are already registered for FCM in the name of "+window.localStorage.getItem('recipient'));
