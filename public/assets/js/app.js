@@ -1,4 +1,5 @@
 const messaging = firebase.messaging();
+<<<<<<< HEAD
 var token;
 
 (()=>{
@@ -29,20 +30,53 @@ messaging.getToken()
       } else {
         console.log('No Instance ID token available. Request permission to generate one.');
         requestPermission();
+=======
+
+$('#regisfcm').click(function(){
+  if (!isTokenSentToServer()) {
+    $('#exampleModal').modal('toggle');
+  }else{
+    alert("Don't worry you are already registered for FCM in the name of "+window.localStorage.getItem('recipient'));
+  }
+});
+
+$('#FCMNotification').click(function(){
+    var recipient = $('#recipient').val().trim();
+    if(recipient.length < 1){
+      recipient = "Anonymous "+ (Math.floor(Math.random() * 5000) + 1  );
+    }
+    getFCMToken(recipient);
+
+});
+
+function getFCMToken(recipient){
+  messaging.getToken()
+      .then(function(currentToken) {
+        console.log(currentToken);
+        if (currentToken) {
+          sendTokenToServer(currentToken,recipient);
+          window.localStorage.setItem('recipient', recipient);
+          window.localStorage.setItem('token', currentToken);
+        } else {
+          console.log('No Instance ID token available. Request permission to generate one.');
+          requestPermission();
+          setTokenSentToServer(false);
+        }
+      })
+      .catch(function(err) {
+        console.log('An error occurred while retrieving token. ', err);
+>>>>>>> 48f1674334688bbfa924b3832a997081ad6cf6a9
         setTokenSentToServer(false);
-      }
-    })
-    .catch(function(err) {
-      console.log('An error occurred while retrieving token. ', err);
-      setTokenSentToServer(false);
-    });
+      });
+}
 
   messaging.onTokenRefresh(function() {
     messaging.getToken()
     .then(function(refreshedToken) {
       console.log('Token refreshed.');
       setTokenSentToServer(false);
-      sendTokenToServer(refreshedToken);
+      sendTokenToServer(refreshedToken,window.localStorage.getItem('recipient'));
+      window.localStorage.setItem('token', refreshedToken);
       console.log("refreshedToken::"+refreshedToken)
     })
     .catch(function(err) {
@@ -62,16 +96,18 @@ messaging.getToken()
   });
 
 
-  function sendTokenToServer(currentToken) {
+  function sendTokenToServer(currentToken,recipient) {
     
     
     if (!isTokenSentToServer()) {
       console.log('Sending token to server...');
-      firebase.database().ref('devices/'+currentToken).set({
+      firebase.database().ref('devices/'+recipient).set({
+        token: currentToken,
         ostype: navigator.userAgent,
       });
       setTokenSentToServer(true);
     } else {
+      alert('This device already registered to FCM in the name of '+recipient);
       console.log('Token already sent to server so won\'t send it again ' +
           'unless it changes');
     }
@@ -96,6 +132,12 @@ messaging.getToken()
 
 
 function subscribe(){
+  var token = window.localStorage.getItem('token');
+  if(token==null || token.length < 1){
+    alert('No FCM Registeration found, Please click Register to FCM button First');
+    return;
+  }
+  else{
     $.ajax({
       type: "POST",
       beforeSend: function(request) {
@@ -112,4 +154,6 @@ function subscribe(){
         alert('Error');
       }
     });
+  }
+    
 }
