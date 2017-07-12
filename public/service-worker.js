@@ -4,6 +4,7 @@ var cacheName = 'pwaCache';
 var filesToCache = [
   './',
   './index.html',
+  './assets/pages/hardwares.html',
   './assets/css/main.css',
   './assets/css/bootstrap.css',
   './assets/img/ipad-hand.png',
