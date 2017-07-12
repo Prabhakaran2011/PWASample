@@ -1,5 +1,4 @@
 const messaging = firebase.messaging();
-<<<<<<< HEAD
 var token;
 
 (()=>{
@@ -9,17 +8,18 @@ var token;
     
     window.addEventListener('online', ()=> {
         $('#subBtn').attr('disabled', false);
+        $('#regisfcm').attr('disabled', false);
         $('#headerButton').empty();
         $('#headerButton').append('<button class="btn btn-success btn-lg" type="submit" >Online</button>');
     });
     
     window.addEventListener('offline', ()=> {
         $('#subBtn').attr('disabled', true);
+        $('#regisfcm').attr('disabled', true);
         $('#headerButton').empty();
         $('#headerButton').append('<button class="btn btn-danger btn-lg" type="submit" >Offline</button>');
     });
 })();
-
 
 messaging.getToken()
     .then(function(currentToken) {
@@ -30,7 +30,8 @@ messaging.getToken()
       } else {
         console.log('No Instance ID token available. Request permission to generate one.');
         requestPermission();
-=======
+      }
+    });
 
 $('#regisfcm').click(function(){
   if (!isTokenSentToServer()) {
@@ -65,7 +66,6 @@ function getFCMToken(recipient){
       })
       .catch(function(err) {
         console.log('An error occurred while retrieving token. ', err);
->>>>>>> 48f1674334688bbfa924b3832a997081ad6cf6a9
         setTokenSentToServer(false);
       });
 }
