@@ -1,4 +1,5 @@
 const messaging = firebase.messaging();
+var token;
 
 $('#FCMNotification').click(function(){
     var recipient = $('#recipient').val().trim();
@@ -46,13 +47,9 @@ function getFCMToken(recipient){
     console.log("Message received. ", payload);
 
     new Notification (payload.notification.title, {
-        body : payload.notification.body,
-        badge : payload.notification.icon,
+        body : 'This message is being loaded from app.js',
         icon : payload.notification.icon,
         //image : 'assets/img/ipad-hand.png',
-        //silent : false,
-        vibrate : [200, 100, 300,200, 100, 300,200, 100, 300],
-
     });
   });
 
@@ -89,3 +86,23 @@ function getFCMToken(recipient){
       console.log('Unable to get permission to notify.', err);
     });
   }
+
+
+function subscribe(){
+    $.ajax({
+      type: "POST",
+      beforeSend: function(request) {
+        request.setRequestHeader("Authorization", "key=AAAA9i76Yf0:APA91bFbbCxfBzXqGgMJGjMKWD_x5WlvIQNuKzQ2_xtNUGmoNP7bXenTNdsAwKupb9SIgedctDjarDIEaXZuIwzH4EzpTep0WQFEbiaE7F4odp-2IYnp2oNt_C2Lf2v30LE4gAStLteh");
+        request.setRequestHeader("content-Type", "application/json");
+      },
+      url: "https://iid.googleapis.com/iid/v1/"+token+"/rel/topics/all",
+      data: "",
+      processData: false,
+      success: function(msg) {
+        alert('Subcribed');
+      },
+      error: function(err){
+        alert('Error');
+      }
+    });
+}

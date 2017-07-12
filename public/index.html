@@ -69,7 +69,9 @@
 					<h3 style="color:white">Websites that took wright vitamins</h3><br/>
           <div>
             <button type="button" class="btn btn-warning btn-lg" data-toggle="modal" data-target="#exampleModal">Subscribe to FCM</button>
-            </div>
+
+            <button type="submit" class="btn btn-warning btn-lg" onclick="subscribe()">Subscribe Topic</button>
+          </div>
 				</div><!-- /col-lg-6 -->
 				<div class="col-lg-6">
 					<img class="img-responsive" src="assets/img/ipad-hand.png" alt="">
@@ -148,7 +150,7 @@
           <div class="modal-dialog" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Welcome to PWA Demo!</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -192,6 +194,13 @@
             firebase.initializeApp(config);
       </script>
 
-    <script src="assets/js/app.js?_=232445343367"></script>
+    <script src="assets/js/app.js?_=2"></script>
+    <script>
+      if('serviceWorker' in navigator) {
+        navigator.serviceWorker
+                .register('service-worker.js')
+                .then(function() { console.log("Service Worker Registered"); });
+      }
+    </script>
   </body>
 </html>
