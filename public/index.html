@@ -65,6 +65,7 @@
 		<div class="container">
             <div class="row centered">
                 <div>
+                <button type="button" class="btn btn-secondary btn-lg" id="subBtn" data-target="#QRModal" data-toggle="modal">Show QR Code</button>
                     <button type="button" class="btn btn-warning btn-lg" id="regisfcm" data-target="#exampleModal">Register to FCM</button>
                     <button type="submit" class="btn btn-warning btn-lg" id="subBtn" onclick="subscribe()">Subscribe Topic</button>
                     <span id="headerButton"></span>
@@ -164,6 +165,26 @@
         </div>
 
 
+        <div class="modal fade" id="QRModal" tabindex="-1" role="dialog" aria-labelledby="QRModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" >
+      <div class="modal-header">
+          <h5 class="modal-title" id="QRModalLabel">Scan this QR to Check PWA Demo on your Android</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      <div class="modal-body">
+        <div>
+          <a href="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=https%3A%2F%2Fpwademo-ff008.firebaseapp.com%2F&qzone=1&margin=0&size=850x850&ecc=L" target="_blank"><img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&bgcolor=FFFFFF&data=https%3A%2F%2Fpwademo-ff008.firebaseapp.com%2F&qzone=1&margin=0&size=550x550&ecc=L" /></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
   <!-- /Modal-->
 	
 
@@ -187,7 +208,7 @@
             firebase.initializeApp(config);
       </script>
 
-    <script src="assets/js/app.js?_=24"></script>
+    <script src="assets/js/app.js?_=25"></script>
     <script>
       if('serviceWorker' in navigator) {
         navigator.serviceWorker
